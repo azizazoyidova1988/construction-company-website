@@ -1,0 +1,75 @@
+{% extends 'construction/base.html' %}
+{% load static %}
+{% block content %}
+            
+            
+            <!-- Page Header Start -->
+            <div class="page-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Our Projects</h2>
+                        </div>
+                        <div class="col-12">
+                            <a href="{% url 'home' %}">Home</a>
+                            <a href="">Our Projects</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page Header End -->
+
+
+            <!-- Portfolio Start -->
+            <div class="portfolio">
+                <div class="container">
+                    <div class="section-header text-center">
+                        <p>Our Projects</p>
+                        <h2>Visit Our Projects</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <ul id="portfolio-flters">
+                                <li data-filter="*" class="filter-active">All</li>
+                                {%for cat in category %}
+                                <li data-filter=".{{cat.id}}">{{cat.name}}</li>
+                                {% endfor%}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row portfolio-container">
+                        {%for cat in category %}
+                        {% for pr in projects%}
+                        {% if cat.id == pr.category_id %}
+                        <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item {{cat.id}} wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="portfolio-warp">
+                                <div class="portfolio-img">
+                                    <img src="/media/{{pr.image}}" alt="Image">
+                                    <div class="portfolio-overlay">
+                                        <p>
+                                            {{pr.description}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="portfolio-text">
+                                    <h3>{{pr.name}}</h3>
+                                    <a class="btn" href="{% url 'single' project_id=pr.id %}" >+</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        <div class="col-12 load-more">
+                            <a class="btn" href="#">Load More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Portfolio End -->
+
+
+
+{% endblock  %}
